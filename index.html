@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>somatique</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #fdfc;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 85vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .receipt {
+            width: 300px;
+            background-color: #3d3132;
+            padding: 20px;
+            border: 2px solid black;
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .shh {
+            margin-bottom: 20px;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .code-input {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border:1px solid #ffffff;
+        }
+
+        .submit-btn {
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .leaf {
+            position: absolute;
+            top: -100px; /* Start above the screen */
+            width: 50px;
+            height: 50px;
+            opacity: 0.8;
+            animation: fall 10s linear infinite;
+            z-index: 0; /* Behind the content */
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.5;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="leaves-container"></div>
+    <div class="shh">
+        <img src="https://i.ibb.co/dM34p7g/silence.png" alt="silence" border="0" width=125px height=125px />
+    </div>
+    <div class="receipt">
+        <div class="logo">somatique</div>
+        <input type="text" class="code-input" placeholder="shhh...">
+        <button class="submit-btn" onclick="redirectToEventPage()">Submit</button>
+    </div>
+
+    <script>
+        function redirectToEventPage() {
+            const code = document.querySelector('.code-input').value;
+            if (code === 'SOMATIQUE123') {
+                window.location.href = 'event.html'; // Replace with your event page URL
+            } else {
+                alert('Invalid code');
+            }
+        }
+        
+        const leavesContainer = document.getElementById('leaves-container');
+
+        function createLeaf() {
+            const leaf = document.createElement('img');
+            leaf.src = 'https://i.ibb.co/JCvSNWH/53a7d59044cdd79239c48c2da2ac7f24-leaves-branch-flat.webp" alt="53a7d59044cdd79239c48c2da2ac7f24-leaves-branch-flat'; // Example leaf image
+            leaf.classList.add('leaf');
+            leaf.style.left = Math.random() * window.innerWidth + 'px';
+            leaf.style.animationDuration = 5 + Math.random() * 5 + 's'; // Random speed for falling
+            leaf.style.transform = `rotate(${Math.random() * 360}deg)`;
+            leavesContainer.appendChild(leaf);
+
+            // Remove the leaf after the animation completes
+            setTimeout(() => {
+                leaf.remove();
+            }, 10000); // Match the duration of the animation
+        }
+
+        // Generate leaves every second
+        setInterval(createLeaf, 500);
+    </script>
+</body>
+</html>
